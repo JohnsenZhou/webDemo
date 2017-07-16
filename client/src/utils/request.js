@@ -1,4 +1,9 @@
 import fetch from 'dva/fetch';
+import Promise from 'es6-promise';
+
+if (!window.Promise) {
+  window.Promise = Promise;
+}
 
 function parseJSON(response) {
   return response.json();
@@ -14,15 +19,14 @@ function checkStatus(response) {
   throw error;
 }
 
-/**
- * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
- */
 export default function request(url, options) {
-  return fetch(url, options)
+  let headers = {};
+  if (options && options.method !== 'GET') {
+    headers = {
+      'content-type': 'application/json'
+    };
+  }
+  return fetch(url, { ...options, headers, credentials: 'same-origin' })
     .then(checkStatus)
     .then(parseJSON)
     .then(data => ({ data }))

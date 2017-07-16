@@ -12,5 +12,16 @@
         "transform-runtime"
       ]
     }
+  },
+  "extraBabelPlugins": [
+    "transform-runtime",
+    ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "proxy": {
+    "/api": {
+      "target": "http://47.94.102.32:8080/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
   }
 }

@@ -1,46 +1,98 @@
 import React, { PropTypes } from 'react';
 import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
-import TweenOne from 'rc-tween-one';
+import TweenOne, { TweenOneGroup } from 'rc-tween-one';
+import BannerAnim, { Element } from 'rc-banner-anim';
+import 'rc-banner-anim/assets/index.css';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 
-class Content extends React.Component {
+const BgElement = Element.BgElement;
+class Banner2 extends React.Component {
+
+  static propTypes = {
+    className: PropTypes.string,
+    dataSource: PropTypes.object,
+    id: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: 'banner2',
+  };
+
   render() {
     const props = { ...this.props };
+    const isMode = props.isMode;
     delete props.isMode;
+    const follow = !isMode ? {
+        delay: 1000,
+        minMove: 0.1,
+        data: [
+          { id: 'bg$0', value: 15, bgPosition: '50%', type: ['backgroundPositionX'] },
+          { id: `${props.id}-wrapperBlock0`, value: -15, type: 'x' },
+        ],
+      } : null;
+    const childrenToRender = (<Element
+      key="0"
+      prefixCls="banner-user-elem"
+      followParallax={follow}
+    >
+      <BgElement
+        className="bg bg0"
+        key="bg"
+        id="bg$0"
+        scrollParallax={{ y: 300 }}
+      />
+      <QueueAnim
+        type={['bottom', 'top']} delay={200}
+        className={`${props.className}-title`}
+        key="text"
+        id={`${props.id}-wrapperBlock0`}
+      >
+          <span
+            className="logo"
+            key="logo"
+            id={`${props.id}-titleBlock0`}
+          >
+            SUNNY 英语
+          </span>
+        <p
+          key="content"
+          id={`${props.id}-contentBlock0`}
+        >
+          专注于3-9岁语言黄金期儿童的教育
+          <br></br>
+          用母语的方式学习英语
+        </p>
+        <Button
+          type="ghost"
+          key="button"
+          id={`${props.id}-buttonBlock0`}
+        >
+          了解更多
+        </Button>
+      </QueueAnim>
+    </Element>);
+
     return (
       <OverPack
-        replay
-        playScale={[0.3, 0.1]}
         {...props}
       >
-        <QueueAnim
-          type={['bottom', 'top']}
-          delay={200}
-          className={`${props.className}-wrapper`}
-          key="text"
-          id={`${props.id}-wrapper`}
+        <TweenOneGroup
+          key="banner"
+          enter={{ opacity: 0, type: 'from' }}
+          leave={{ opacity: 0 }}
+          component=""
         >
-          <span
-            className="title"
-            key="title"
-            id={`${props.id}-title`}
+          <BannerAnim
+            key="banner"
           >
-            <img width="100%" src="https://zos.alipayobjects.com/rmsportal/HqnZZjBjWRbjyMr.png" />
-          </span>
-          <p
-            key="content"
-            id={`${props.id}-content`}
-          >
-            lalala
-          </p>
-          <Button type="ghost" key="button" id={`${props.id}-button`}>
-            Learn More
-          </Button>
-        </QueueAnim>
+            {childrenToRender}
+          </BannerAnim>
+        </TweenOneGroup>
         <TweenOne
           animation={{ y: '-=20', yoyo: true, repeat: -1, duration: 1000 }}
           className={`${props.className}-icon`}
+          style={{ bottom: 40 }}
           key="icon"
         >
           <Icon type="down" />
@@ -50,13 +102,5 @@ class Content extends React.Component {
   }
 }
 
-Content.propTypes = {
-  className: PropTypes.string,
-  id: PropTypes.string,
-};
+export default Banner2;
 
-Content.defaultProps = {
-  className: 'banner0',
-};
-
-export default Content;

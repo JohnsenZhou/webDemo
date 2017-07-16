@@ -41,7 +41,8 @@ class Footer extends React.Component {
       { title: '产品', content: '产品更新记录\nAPI文档\n快速入门\n参考指南', contentLink: '#\n#\n#\n#' },
       { title: '关于', content: 'FAQ\n联系我们', contentLink: '#\n#' },
       { title: '资源', content: 'Ant Design\nAnt Design Mobile\nAnt Cool\nAntD Library', contentLink: '#\n#\n#\n#' },
-      { title: '关注', content: 'https://zos.alipayobjects.com/rmsportal/IiCDSwhqYwQHLeU.svg\n https://zos.alipayobjects.com/rmsportal/AXtqVjTullNabao.svg\n https://zos.alipayobjects.com/rmsportal/fhJykUTtceAhYFz.svg\n https://zos.alipayobjects.com/rmsportal/IDZTVybHbaKmoEA.svg', contentLink: '#\n#\n#\n#' },
+      // { title: '关注', content: 'https://zos.alipayobjects.com/rmsportal/IiCDSwhqYwQHLeU.svg\n https://zos.alipayobjects.com/rmsportal/AXtqVjTullNabao.svg\n https://zos.alipayobjects.com/rmsportal/fhJykUTtceAhYFz.svg\n https://zos.alipayobjects.com/rmsportal/IDZTVybHbaKmoEA.svg', contentLink: '#\n#\n#\n#' },
+      { title: '关注', content: 'https://zos.alipayobjects.com/rmsportal/fhJykUTtceAhYFz.svg\n', contentLink: '#\n#' },
     ];
     const liChildrenToRender = dataSource.map(this.getLiChildren);
     return (<OverPack

@@ -1,62 +1,59 @@
 import React from 'react';
-import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
+import VideoPlay from 'react-sublime-video';
 
 class Content extends React.Component {
 
   static defaultProps = {
-    className: 'content1',
+    className: 'content3',
   };
 
   render() {
     const props = { ...this.props };
     const isMode = props.isMode;
     delete props.isMode;
-    const animType = {
-      queue: isMode ? 'bottom' : 'left',
-      one: isMode ? { y: '+=30', opacity: 0, type: 'from' }
-        : { x: '+=30', opacity: 0, type: 'from' },
-    };
+    const animation = { y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad' };
+    const videoChildren = 'https://os.alipayobjects.com/rmsportal/EejaUGsyExkXyXr.mp4'
     return (
-      <div
-        {...props}
-        className={`content-template-wrapper content-half-wrapper ${props.className}-wrapper`}
-      >
+      <div {...props} className={`content-template-wrapper ${props.className}-wrapper`}>
         <OverPack
           className={`content-template ${props.className}`}
           location={props.id}
         >
-          <QueueAnim
-            type={animType.queue}
-            className={`${props.className}-text`}
-            key="text"
-            leaveReverse
-            ease={['easeOutCubic', 'easeInCubic']}
-            id={`${props.id}-textWrapper`}
-          >
-            <h1 key="h1" id={`${props.id}-title`}>
-              分布式中间件
-            </h1>
-            <p key="p" id={`${props.id}-content`}>
-              金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。
-            </p>
-          </QueueAnim>
           <TweenOne
-            key="img"
-            animation={animType.one}
-            className={`${props.className}-img`}
-            id={`${props.id}-imgWrapper`}
-            resetStyleBool
+            animation={animation}
+            component="h1"
+            key="h1"
+            reverseDelay={300}
+            id={`${props.id}-title`}
           >
-            <span id={`${props.id}-img`}>
-              <img width="100%" src="https://zos.alipayobjects.com/rmsportal/tvQTfCupGUFKSfQ.png" />
-            </span>
+            提供专业的服务
+          </TweenOne>
+          <TweenOne
+            animation={{ ...animation, delay: 200 }}
+            component="p"
+            key="p"
+            reverseDelay={200}
+            id={`${props.id}-content`}
+          >
+            科技想象力，金融创造力
+          </TweenOne>
+          <TweenOne
+            key="video"
+            animation={{ ...animation, delay: 300 }}
+            className={`${props.className}-video`}
+            id={`${props.id}-video`}
+          >
+            {isMode ?
+              (<video src={videoChildren} width="100%" loop />) :
+              (<VideoPlay loop src={videoChildren} width="100%" />)}
           </TweenOne>
         </OverPack>
       </div>
     );
   }
 }
+
 
 export default Content;
