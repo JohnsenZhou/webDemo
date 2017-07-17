@@ -7,6 +7,7 @@
 为了使开发快速高效，使用了以下辅助工具：
 
 - html模板引擎：handlebar
+- node进程管理：pm2
 - node服务框架：express
 - 开发框架：Bootstrap
 - DOM操作：Jquery
